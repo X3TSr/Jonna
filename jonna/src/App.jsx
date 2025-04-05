@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const confettiAmount = 100;
+
+  function throwConfetti(btn) {
+    
+    let df = document.createDocumentFragment();
+    for (let i=0; i<confettiAmount; i++) {
+      let c = document.createElement("i");
+      c.style.cssText = `
+        transform: translate3d(${(random(500) - 250)}px, ${(random(225) - 150)}px, 0)
+        rotate(${ random(360) }deg); 
+        background: hsla(${random(360)},100%,50%,1);
+      `;
+      df.appendChild(c);
+      setTimeout(()=> {
+        c.remove();
+      }, 2000)  
+    } 
+    btn.appendChild(df);
+  
+  }
+  
+  function random(max){
+    return Math.random() * (max - 0) + 0;
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>HAPPY BIRTHDAY</h1>
+      <button className="clickBox" onClick={(e) => throwConfetti(e.currentTarget)}></button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
